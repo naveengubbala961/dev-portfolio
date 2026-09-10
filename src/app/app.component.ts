@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { RevealDirective } from './directives/reveal.directive';
+import { HeroTerminalComponent } from './hero-terminal/hero-terminal.component';
 import {
   experience,
   profile,
@@ -20,7 +21,7 @@ import {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, HeroTerminalComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html',
 })
