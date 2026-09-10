@@ -256,7 +256,12 @@ img {
 }
 
 @media (max-width: 760px) {
+  /* Collapse the numbered section links, but keep the "get in touch"
+     CTA (the last item) reachable — it's the primary contact action. */
   .nav__links {
+    gap: 0;
+  }
+  .nav__links li:not(:last-child) {
     display: none;
   }
 }
@@ -677,6 +682,10 @@ img {
   line-height: 1;
   letter-spacing: -0.03em;
   margin-bottom: 2.4rem;
+  /* The email is one long unbreakable word — allow it to wrap on
+     narrow screens instead of overflowing the viewport. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .contact__title a {
   position: relative;
