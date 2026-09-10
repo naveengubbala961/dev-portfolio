@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "Bash(vercel --version)",
+      "Bash(netlify --version)",
+      "Bash(git config *)",
+      "Bash(npm run *)",
+      "Bash(grep -E '^\\\\.git\\(ignore\\)?$')",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git -c 'user.name=Naveen Gubbala' -c user.email=naveengubbala800@gmail.com commit -q -m 'Portfolio: smart device-aware '\\\\''get in touch'\\\\'' + initial commit *)",
+      "Bash(git branch *)"
+    ]
+  }
+}

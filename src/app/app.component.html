@@ -1,0 +1,180 @@
+<!-- ============================= NAV ============================= -->
+<nav class="nav" [class.scrolled]="scrolled()">
+  <a class="nav__brand" href="#top">
+    {{ profile.brandFirst }}<span>.{{ profile.brandSecond }}</span>
+  </a>
+  <ul class="nav__links">
+    @for (s of sections; track s.id; let i = $index) {
+      <li>
+        <a [href]="'#' + s.id" [class.active]="activeSection() === s.id">
+          <span class="idx">{{ (i + 1).toString().padStart(2, '0') }}</span>{{ s.label }}
+        </a>
+      </li>
+    }
+    <li>
+      <a
+        class="nav__cta"
+        [href]="'mailto:' + profile.email"
+        (click)="getInTouch($event)"
+        >get in touch</a
+      >
+    </li>
+  </ul>
+</nav>
+
+<main id="top">
+  <!-- ============================= HERO ============================= -->
+  <header class="hero shell">
+    <span class="hero__avail">
+      <span class="hero__dot"></span>{{ profile.available }}
+    </span>
+
+    <h1 class="hero__name">
+      <span class="line"><span [innerHTML]="profile.nameLine1"></span></span>
+      <span class="line"><span [innerHTML]="profile.nameLine2"></span></span>
+    </h1>
+
+    <p class="hero__lede" [innerHTML]="profile.lede"></p>
+
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="#work">
+        View work
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+      <a class="btn btn--ghost" [href]="'mailto:' + profile.email">Contact me</a>
+    </div>
+
+    <div class="hero__scroll">
+      <span class="bar"></span>scroll
+    </div>
+  </header>
+
+  <!-- ============================= ABOUT ============================= -->
+  <section id="about" class="section shell">
+    <div class="about__grid">
+      <div appReveal>
+        <span class="section-tag">01 — About</span>
+        <div class="about__body">
+          @for (para of profile.about; track $index) {
+            <p [innerHTML]="para"></p>
+          }
+        </div>
+      </div>
+      <div class="about__facts" [appReveal]="120">
+        @for (f of profile.facts; track f.k) {
+          <div class="fact">
+            <div class="fact__k">{{ f.k }}</div>
+            <div class="fact__v">{{ f.v }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SKILLS ============================= -->
+  <section id="skills" class="section shell">
+    <div appReveal>
+      <span class="section-tag">02 — Toolkit</span>
+      <h2 class="section-title">Things I build <em>with</em>.</h2>
+    </div>
+    <div class="skills__grid">
+      @for (group of skills; track group.name; let i = $index) {
+        <article class="skill-card" [appReveal]="i * 80">
+          <h3 class="skill-card__name">
+            {{ group.name }}<span class="lvl">{{ group.level }}</span>
+          </h3>
+          <div class="skill-card__list">
+            @for (item of group.items; track item) {
+              <span class="chip">{{ item }}</span>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- ============================= WORK ============================= -->
+  <section id="work" class="section shell">
+    <div appReveal>
+      <span class="section-tag">03 — Selected work</span>
+      <h2 class="section-title">Recent <em>projects</em>.</h2>
+    </div>
+    <div class="projects__list">
+      @for (p of projects; track p.title; let i = $index) {
+        <article class="project" appReveal>
+          <span class="project__num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+          <div class="project__main">
+            <h3 class="project__title">{{ p.title }}</h3>
+            <p class="project__desc">{{ p.description }}</p>
+            <div class="project__tags">
+              @for (t of p.tags; track t) {
+                <span class="chip">{{ t }}</span>
+              }
+            </div>
+          </div>
+          <div class="project__links">
+            @if (p.liveUrl) {
+              <a [href]="p.liveUrl" target="_blank" rel="noopener">
+                Live
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+            }
+            @if (p.codeUrl) {
+              <a [href]="p.codeUrl" target="_blank" rel="noopener">
+                Code
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
+                </svg>
+              </a>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- ============================= EXPERIENCE ============================= -->
+  <section id="experience" class="section shell">
+    <div appReveal>
+      <span class="section-tag">04 — Experience</span>
+      <h2 class="section-title">Where I&rsquo;ve <em>worked</em>.</h2>
+    </div>
+    <div class="timeline">
+      @for (job of experience; track job.role + job.period) {
+        <article class="tl-item" appReveal>
+          <div class="tl-period">{{ job.period }}</div>
+          <div>
+            <h3 class="tl-role">{{ job.role }}</h3>
+            <p class="tl-company"><b>{{ job.company }}</b> · {{ job.location }}</p>
+            <p class="tl-desc">{{ job.description }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- ============================= CONTACT ============================= -->
+  <section id="contact" class="contact shell">
+    <div appReveal>
+      <p class="contact__sub">Let&rsquo;s work together</p>
+      <h2 class="contact__title">
+        <a [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+      </h2>
+      <div class="contact__socials">
+        @for (s of profile.socials; track s.label) {
+          <a [href]="s.url" target="_blank" rel="noopener">{{ s.label }} ↗</a>
+        }
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="footer">
+  <span>© {{ year }} {{ profile.nameLine1 }} {{ profile.brandSecond }}</span>
+  <span>Built with Angular · Hosted on GitHub Pages</span>
+</footer>
